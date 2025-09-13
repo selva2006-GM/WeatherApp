@@ -7,6 +7,7 @@ const tempImg = document.getElementById('tempImg');
 const description = document.getElementById('description');
 const tempMax = document.getElementById('tempMax');
 const tempMin = document.getElementById('tempMin');
+const preLoader = document.querySelector("#preLoader");
 
 
 const months = ["January", "Februauy", "March", "April", "May", "June",
@@ -26,6 +27,7 @@ const app = document.getElementById('app');
 const getWeather = async () =>{
     try{
         const cityName = document.getElementById('searchBarInput').value;
+        preLoader.style.display="block";
         const weatherDateFetch = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=38aec60398a1dc0fb7af05a5e93df230&units=metric`,
             {
             Headers:{
@@ -34,6 +36,7 @@ const getWeather = async () =>{
         });
 
         const weatherData = await weatherDateFetch.json();
+        preLoader.style.display="none";
         console.log(weatherData)
         city.innerHTML = `${weatherData.name}`;
         description.innerHTML = `${weatherData.weather[0].main}`;
